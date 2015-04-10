@@ -1,16 +1,9 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.*;
 import java.util.*;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.*;
@@ -20,7 +13,12 @@ import javax.swing.event.DocumentListener;
 
 public class GUIMain extends JFrame{
 	
-	   public static void main(String[] args) throws IOException {
+	   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public static void main(String[] args) throws IOException {
 		   setupWindow();
 		   
 		   
@@ -39,50 +37,6 @@ public class GUIMain extends JFrame{
 		   title.setFont(new Font("Times New Roman", Font.BOLD, 65));
 		   title.setBorder(new EmptyBorder(0,60,0,0));
 		   //panel.add(title, BorderLayout.PAGE_START);
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
 		   
 		   
 		   JPanel centerColumn = new JPanel();
@@ -107,7 +61,6 @@ public class GUIMain extends JFrame{
 		   ButtonGroup radioButtons = new ButtonGroup();
 		   radioButtons.add(studPerTeamRadio);
 		   radioButtons.add(numTeamsRadio);
-		   //TODO Make a radio turn on if start typing in respective textbox
 		   studPerTeamRadio.setSelected(true);
 		   
 		   JPanel bunnyLayout = new JPanel();
@@ -199,8 +152,6 @@ public class GUIMain extends JFrame{
 							try {
 								uri = new URI("https://github.com/normana10/StudentSorter/blob/master/GUIMain.java");
 							} catch (URISyntaxException e2) {
-								// TODO Auto-generated catch block
-								e2.printStackTrace();
 							}
 							Desktop dt = Desktop.getDesktop();
 							try {
@@ -223,7 +174,6 @@ public class GUIMain extends JFrame{
 					fd.setDirectory("C:\\");
 					fd.setFile("*.xml");
 					fd.setVisible(true);
-					String filename = fd.getFile();
 					
 					File writtenTo = new File("CurrentStatsRoster.txt");
 					
@@ -231,8 +181,6 @@ public class GUIMain extends JFrame{
 						try {
 							writtenTo.createNewFile();
 						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
 						}
 					}
 					
@@ -242,7 +190,6 @@ public class GUIMain extends JFrame{
 						fWrite = new FileWriter(writtenTo.getAbsoluteFile());
 						buffWriter = new BufferedWriter(fWrite);
 					} catch (IOException e2) {
-						// TODO Auto-generated catch block
 						e2.printStackTrace();
 					}
 					
@@ -270,8 +217,6 @@ public class GUIMain extends JFrame{
 					try {
 						buffWriter.close();
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
 					}
 					
 					frame.removeAll();
@@ -279,8 +224,6 @@ public class GUIMain extends JFrame{
 					try {
 						setupWindow();
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
 					}
 					
 				}
@@ -302,7 +245,6 @@ public class GUIMain extends JFrame{
 		   final JFrame attendanceWindow = new JFrame("Attendance");
 		   
 		   
-		   int rightButtonSpace = 2;
 		   JButton atten = new JButton("Attendance");
 		   atten.addActionListener(new ActionListener(){
 			   public void actionPerformed(ActionEvent e) {
@@ -378,6 +320,7 @@ public class GUIMain extends JFrame{
 			   count++;
 		   }
 		   
+		   meFile.close();
 		   
 		   final JCheckBox[] checkBoxes = new JCheckBox[10000];
 		   //TODO Current Limit of # of students, Fix algorithmically later? 10,000 Studs
@@ -443,10 +386,6 @@ public class GUIMain extends JFrame{
 		   });
 		   
 		   
-		   //SORT.setBorder(new EmptyBorder(1,1,1,50));
-		   //TODO ^^^^ Need new way to move into right position.... ^^^^^^
-		   //SORT.setPr eferredSize(new Dimension(400,80));
-		   //TODO Fixed???
 		   centerColumn.add(SORT);
 		   
 		   panel.add(centerColumn, BorderLayout.CENTER);
@@ -485,13 +424,8 @@ public class GUIMain extends JFrame{
 		   teamWindow.setResizable(true);
 		   
 		   JPanel teams = new JPanel();
-		   //teams.setLayout(new FlowLayout());
-		   //teams.setLayout(new BoxLayout(teams, BoxLayout.Y_AXIS));
-		   //TODO Toy around with size based on # of teams......
-		   //TODO Change temp #'s  ^^^^^^^^^^6^^^^66^^^^
 		   
 		   ArrayList<String> studNames = new ArrayList<String>();
-		   //TODO more dumb limits in need of algorithms
 		   
 		   int counting = 0;
 		   for(int i = 0; i < numberOfStuds; i++){
@@ -502,7 +436,6 @@ public class GUIMain extends JFrame{
 		   }
 		   
 		   ArrayList<JLabel> studs = new ArrayList<JLabel>();
-		   //TODO Get Algorithm'd M8
 		   
 		   int numberOfStudsPresent = counting;
 		   
@@ -544,12 +477,9 @@ public class GUIMain extends JFrame{
 		try {
 			animalOn = animalReader.readLine();
 		} catch (IOException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
 		}
 		   int numOfAnimals = 0;
 		   ArrayList<String> infiniteAnimals = new ArrayList<String>();
-		   //TODO GRRRRRR!!!!....
 		   
 		   while(animalOn != null){
 			   infiniteAnimals.add(animalOn);
@@ -557,8 +487,6 @@ public class GUIMain extends JFrame{
 			   try {
 				animalOn = animalReader.readLine();
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
 			}
 			   numOfAnimals++;
 		   }
@@ -572,8 +500,6 @@ public class GUIMain extends JFrame{
 		   }
 		   
 		   final JLabel[][] teamsArray = new JLabel[numberOfTeams][studsPerTeam + 2];
-		   
-		   JLabel[] currentTeam = new JLabel[studsPerTeam + 1];
 		   
 		   
 		   for (int h = 0; h < numberOfTeams; h++){
@@ -666,9 +592,6 @@ public class GUIMain extends JFrame{
 		   });
 		   
 		   teamWindow.setVisible(true);
-		   
-		   //TODO ADD BACK, EXIT AND REDO BUTTONZZZZZZ
-		   
 		   
 	   }
 }
