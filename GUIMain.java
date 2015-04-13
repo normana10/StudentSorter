@@ -53,7 +53,7 @@ public class GUIMain extends JFrame{
 		   
 		   JPanel studentsPerTeamLayout = new JPanel(new FlowLayout());
 		   final JRadioButton studPerTeamRadio = new JRadioButton("Students Per Team:");
-		   final JTextField studPerTeamTextField = new JTextField("5", 10);
+		   final JTextField studPerTeamTextField = new JTextField("4", 10);
 		   studentsPerTeamLayout.add(studPerTeamRadio);
 		   studentsPerTeamLayout.add(studPerTeamTextField);
 		   studentsPerTeamLayout.setBorder(new EmptyBorder(0,0,textFieldDist,0));
@@ -116,7 +116,7 @@ public class GUIMain extends JFrame{
 				   JPanel credits = new JPanel();
 				   credits.setLayout(new BoxLayout(credits, BoxLayout.Y_AXIS));
 				   
-				   JLabel topCredit = new JLabel("Student Sorter 2k15");
+				   JLabel topCredit = new JLabel("Student Sorter 2k15 V1.1");
 				   JLabel author = new JLabel("By: Arthur Normand");
 				   JLabel started = new JLabel("Started: April 9, 2k15");
 				   JLabel updated = new JLabel("Last Updated: April 10, 2k15");
@@ -165,6 +165,12 @@ public class GUIMain extends JFrame{
 			   }
 		   });
 		   
+		   
+		   JPanel attendance = new JPanel();
+		   attendance.setLayout(new BoxLayout(attendance, BoxLayout.Y_AXIS));
+		   final JFrame attendanceWindow = new JFrame("Attendance");
+		   
+		   
 		   JButton fileBrowserButton = new JButton("Browse...");
 		   bottomToolbar.add(fileBrowserButton);
 		   bottomToolbar.add(Box.createHorizontalStrut(strutDist));
@@ -172,7 +178,7 @@ public class GUIMain extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 					FileDialog fd = new FileDialog(frame, "Choose a file", FileDialog.LOAD);
 					fd.setDirectory("C:\\");
-					fd.setFile("*.xml");
+					fd.setFile("AP Statistics.csv");
 					fd.setVisible(true);
 					
 					File writtenTo = new File("CurrentStatsRoster.txt");
@@ -226,9 +232,9 @@ public class GUIMain extends JFrame{
 					} catch (IOException e1) {
 					}
 					
+					attendanceWindow.setVisible(false);
 				}
 		   });
-		   
 		   
 		   JButton exitButton = new JButton("Exit");
 		   bottomToolbar.add(exitButton);
@@ -239,10 +245,6 @@ public class GUIMain extends JFrame{
 		   });
 		   
 		   panel.add(bottomToolbar, BorderLayout.PAGE_END);
-		   
-		   JPanel attendance = new JPanel();
-		   attendance.setLayout(new BoxLayout(attendance, BoxLayout.Y_AXIS));
-		   final JFrame attendanceWindow = new JFrame("Attendance");
 		   
 		   
 		   JButton atten = new JButton("Attendance");
@@ -443,10 +445,11 @@ public class GUIMain extends JFrame{
 			   studs.add(new JLabel(studNames.get(i)));
 		   }
 		   
-		   Collections.shuffle(studs);
+		   //Collections.shuffle(studs);
 		   
 		   int numberOfTeams = 0;
 		   int studsPerTeam = 0;
+		   int numberOfTeamsOver = 0;
 		   
 		   if(numTeamsRadio.isSelected()){
 			   try {
@@ -463,6 +466,7 @@ public class GUIMain extends JFrame{
 					   System.exit(1);
 				   }
 			   numberOfTeams = numberOfStudsPresent/studsPerTeam;
+			   numberOfTeamsOver = (numberOfStudsPresent + studsPerTeam - 1)/studsPerTeam;
 		   }
 		   
 		   
@@ -499,14 +503,19 @@ public class GUIMain extends JFrame{
 			   animals[i] = new JLabel("(" + (i + 1) + ")Team " + infiniteAnimals.get(i));
 		   }
 		   
-		   final JLabel[][] teamsArray = new JLabel[numberOfTeams][studsPerTeam + 2];
+		   System.out.println(numberOfTeams);
+		   
+		   final JLabel[][] teamsArray = new JLabel[numberOfTeamsOver][studsPerTeam + 2];
 		   
 		   
-		   for (int h = 0; h < numberOfTeams; h++){
+		   for (int h = 0; h < numberOfTeamsOver; h++){
 			   animals[h].setAlignmentX(Component.CENTER_ALIGNMENT);
 			   animals[h].setFont(new Font("Arial", Font.BOLD, 30));
 			   teamsArray[h][0] = animals[h];
 		   }
+		   
+		   System.out.println(numberOfTeams);
+		   System.out.println(numberOfTeamsOver);
 		   
 		   for(int i = studs.size() - 1; i >= 0; i--){
 			   if(studs.get(i).getText() == null){
@@ -523,22 +532,29 @@ public class GUIMain extends JFrame{
 			   }
 		   }
 		   
-		   for(int i = 0; i < numberOfTeams; i++){
-			   if(!studs.isEmpty()){
+		   
+		   int imCounting = 1;
+		   while(!studs.isEmpty()){
 				   studs.get(0).setAlignmentX(Component.CENTER_ALIGNMENT);
 				   studs.get(0).setFont(new Font("Arial", Font.PLAIN, 20));
-				   teamsArray[i][studsPerTeam + 1] = studs.get(0);
+				   teamsArray[teamsArray.length - 1][imCounting] = studs.get(0);
 				   studs.remove(0);
+				   imCounting++;
+		   }
+		   /*
+		   for(int i = 0; i < teamsArray.length; i++){
+			   for(int r = 0; r < studsPerTeam; r++){
+				   System.out.println(teamsArray[i][r].getText());
 			   }
 		   }
+		   */
+		   JPanel[] tempTeam = new JPanel[numberOfTeamsOver];
 		   
-		   JPanel[] tempTeam = new JPanel[numberOfTeams];
-		   
-		   for(int i = 0; i < numberOfTeams; i++){
+		   for(int i = 0; i < numberOfTeamsOver; i++){
 			   tempTeam[i] = new JPanel();
 		   }
 		   
-		   for(int i = 0; i < numberOfTeams; i++){
+		   for(int i = 0; i < numberOfTeamsOver; i++){
 			   tempTeam[i].setLayout(new BoxLayout(tempTeam[i], BoxLayout.Y_AXIS));
 			   for(int c = 0; c < teamsArray[i].length; c++){
 				   if(teamsArray[i][c] != null){
@@ -547,11 +563,11 @@ public class GUIMain extends JFrame{
 			   }
 		   }
 		   
-		   for(int i = 0; i < numberOfTeams; i++){
+		   for(int i = 0; i < numberOfTeamsOver; i++){
 			   teams.add(tempTeam[i]);
 		   }
 		   
-		   int boxes = (int) Math.sqrt(numberOfTeams);
+		   int boxes = (int) Math.sqrt(numberOfTeamsOver);
 		   teams.setLayout(new GridLayout(boxes,boxes));
 		   teams.setBorder(new EmptyBorder(15,15,15,15));
 		   
